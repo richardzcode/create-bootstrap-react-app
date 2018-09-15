@@ -1,12 +1,21 @@
 # create-bootstrap-react-app
-Create React apps with Bootstrap
+
+Create React apps with Bootstrap.
+
+This tool runs [Create React App](https://github.com/facebook/create-react-app) with [Bootstrap 4 React](https://github.com/richardzcode/bootstrap-4-react).
 
 ## Installation
 
-First make sure you have `create-react-app` installed. If not then,
+Make sure `create-react-app` is installed.
 
 ```
 npm install --global create-react-app
+```
+
+Then,
+
+```
+npm install --global create-bootstrap-react-app
 ```
 
 ## Create an App
