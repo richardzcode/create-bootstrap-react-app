@@ -13,7 +13,7 @@ export default class Sidebar extends Component {
   render() {
     return (
       <React.Fragment>
-        <BDiv display="flex" alignItems="start" className="bd-search">
+        <BDiv display="flex" alignItems="start" className="cbra-search">
           <Form.Input
             id="search-input"
             placeholder="Search..."
@@ -25,8 +25,8 @@ export default class Sidebar extends Component {
             p="0"
             ml="3"
             data-toggle="collapse"
-            data-target="#bd-side-nav"
-            aria-controls="bd-side-nav"
+            data-target="#cbra-side-nav"
+            aria-controls="cbra-side-nav"
             aria-expanded="false"
             aria-label="Toggle side navigation"
           >
@@ -42,9 +42,9 @@ export default class Sidebar extends Component {
             </BSvg>
           </Button>
         </BDiv>
-        <Collapse mb="3" className="bd-links" id="bd-side-nav">
-          <BDiv className="bd-toc-item" active>
-            <BA className="bd-toc-link" href="#/getting-started">Getting started</BA>
+        <Collapse mb="3" className="cbra-links" id="cbra-side-nav">
+          <BDiv className="cbra-toc-item" active>
+            <BA className="cbra-toc-link" href="#/getting-started">Getting started</BA>
           </BDiv>
           <Nav display="block">
             <Nav.Item active>
@@ -54,11 +54,11 @@ export default class Sidebar extends Component {
               <Nav.Link href='#/getting-started/quick-start'>Quick start</Nav.Link>
             </Nav.Item>
           </Nav>
-          <BDiv className="bd-toc-item">
-            <BA className="bd-toc-link" href="#/components">Components</BA>
+          <BDiv className="cbra-toc-item">
+            <BA className="cbra-toc-link" href="#/components">Components</BA>
           </BDiv>
-          <BDiv className="bd-toc-item">
-            <BA className="bd-toc-link" href="#/utilities">Utilities</BA>
+          <BDiv className="cbra-toc-item">
+            <BA className="cbra-toc-link" href="#/utilities">Utilities</BA>
           </BDiv>
         </Collapse>
       </React.Fragment>

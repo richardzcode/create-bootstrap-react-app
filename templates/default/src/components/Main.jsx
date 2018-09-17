@@ -9,7 +9,7 @@ export default class Main extends Component {
     return (
       <Container fluid>
         <Row flex="xl-nowrap">
-          <Col col="12 md-3 xl-2" className="bd-sidebar">
+          <Col col="12 md-3 xl-2" className="cbra-sidebar">
             <Sidebar />
           </Col>
           <Col col="12 md-9 xl-8" py="md-3" pl="md-5">

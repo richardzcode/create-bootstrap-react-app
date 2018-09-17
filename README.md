@@ -25,3 +25,16 @@ create-bootstrap-react-app my-app
 cd my-app
 npm start
 ```
+
+## Templates
+
+You may create app with Bootstrap templates.
+
+```
+create-bootstrap-react-app --template <template_name> my-app
+```
+
+For a list of avaiable templates, run
+```
+create-bootstrap-react-app --template
+```

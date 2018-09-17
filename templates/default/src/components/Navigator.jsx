@@ -24,7 +24,7 @@ const github = (
 export default class Navigator extends Component {
   render() {
     return (
-      <Navbar as="header" expand dark flex="column md-row" className="bd-navbar">
+      <Navbar as="header" expand dark flex="column md-row" className="cbra-navbar">
         <Navbar.Brand mr="0 md-2" href="/" aria-label="Bootstrap">
           {logo}
         </Navbar.Brand>
@@ -42,7 +42,7 @@ export default class Navigator extends Component {
           display="none lg-inline-block"
           mb="3 md-0"
           ml="md-3"
-          className="btn-bd-download"
+          className="btn-cbra-download"
           as="a"
           href="#"
         >

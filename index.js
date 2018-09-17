@@ -30,14 +30,53 @@ function fileExists(file) {
   return fs.existsSync(file);
 }
 
+function readFile(file) {
+  if (!fs.existsSync(file)) { return ''; }
+
+  return fs.readFileSync(file, { encoding: 'utf8' });
+}
+
 function files(dir) {
   return glob.sync(path.join(dir, '**'), { dot: true })
     .filter(file => !fs.lstatSync(file).isDirectory());
 }
 
+function dirs(dir) {
+  return glob.sync(path.join(dir, '*'), { dot: true })
+    .filter(file => fs.lstatSync(file).isDirectory());
+}
+
 function copyFile(src, dest) {
   fs.mkdirsSync(dest.replace(new RegExp('/[^/]*$'), ''));
   fs.copySync(src, dest);
+}
+
+function listTemplates() {
+  log('List of templates:');
+  dirs(templatesRoot).map(dir => dir.replace(templatesRoot, '').slice(1))
+    .filter(name => name !== 'default')
+    .forEach(name => {
+      log(chalk.green('    ' + name));
+    });
+}
+
+function showTemplate(template) {
+  const templateRoot = path.join(templatesRoot, template);
+  if (!fileExists(templateRoot)) {
+    log('Template ' + chalk.yellow(template) + ' does not exist');
+    return;
+  }
+
+  const templateReadMe = path.join(templateRoot, 'template.md');
+  if (!fileExists(templateReadMe)) {
+    log('Template ' + chalk.yellow(template) + ' does not have readme. i.e. /template.md');
+    return;
+  }
+
+  const lines = readFile(templateReadMe)
+    .split('\n')
+    .map(line => '  ' + line);
+  log(lines);
 }
 
 /*** checking ***/
@@ -47,7 +86,7 @@ function parseArgs() {
     .arguments('<project-directory>')
     .action(name => projectName = name)
     .option('--use-npm')
-    .option('--template [value]', 'template name')
+    .option('-t --template [value]', 'template name')
     .parse(process.argv);
 }
 
@@ -83,22 +122,34 @@ function hasYarn() {
 }
 
 parseArgs();
+const useNpm = program.useNpm || !hasYarn();
+let template = program.template;
+
+const cbra = moduleInfo('create-bootstrap-react-app');
+const templatesRoot = path.join(cbra.location, 'templates');
 
 if (!projectName) {
+  if (template) {
+    if (template === true) {
+      listTemplates();
+    } else {
+      showTemplate(template);
+    }
+  }
+
   log([
     'Please specify the project directory:',
     '  ' + chalk.cyan('create-bootstrap-react-app ') + chalk.green('<project-directory>'),
     '',
     'For example:',
-    '  ' + chalk.cyan('create-bootstrap-react-app ') +  chalk.green('my-react-app')
+    '  ' + chalk.cyan('create-bootstrap-react-app ') +  chalk.green('my-bootstrap-react-app')
   ])
   process.exit(1);
 }
 
 const nodeVersion = process.versions.node;
 const craVersion = moduleVersion('create-react-app');
-const useNpm = program.useNpm || !hasYarn();
-let template = program.template || 'default';
+template = template || 'default';
 
 log([
   chalk.cyan('Node version: ') + nodeVersion,
@@ -138,15 +189,16 @@ if (useNpm) {
 shell.cd('..');
 
 /*** copy template ***/
+log('Copying template');
+
 const CWD = process.cwd();
 const projectRoot = path.join(CWD, projectName);
 
-const cbra = moduleInfo('create-bootstrap-react-app');
-let templateRoot = path.join(cbra.location, 'templates', template);
+let templateRoot = path.join(templatesRoot, template);
 if (!fileExists(templateRoot)) {
   log('Template ' + chalk.yellow(template) + ' does not exist, use default');
   template = 'default';
-  templateRoot = path.join(cbra.location, 'templates', template);
+  templateRoot = path.join(templatesRoot, template);
 }
 
 files(templateRoot)
@@ -155,5 +207,29 @@ files(templateRoot)
     copyFile(file, dest);
   });
 
-log('Enjoy!');
+/*** success ***/
+log([
+  'Success! Created ' + projectName + ' at ' + projectRoot,
+  'Inside that directory, you can run several commends:',
+  '',
+  '  ' + chalk.cyan('npm start'),
+  '    Starts that development server.',
+  '',
+  '  ' + chalk.cyan('npm run build'),
+  '    Bundles the app into static files for production.',
+  '',
+  '  ' + chalk.cyan('npm test'),
+  '    Starts the test runner.',
+  '',
+  '  ' + chalk.cyan('npm run eject'),
+  '    Removes this tool and copies build dependencies, configuration files',
+  '    and scripts into the app directory. If you do this, you can’t go back!',
+  '',
+  'We suggest that you begin by typing:',
+  '',
+  '  ' + chalk.cyan('cd') + ' ' + projectName,
+  '  ' + chalk.cyan('npm start'),
+  '',
+  'Happy hacking!'
+]);
 
