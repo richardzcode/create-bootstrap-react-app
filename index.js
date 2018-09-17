@@ -52,12 +52,13 @@ function copyFile(src, dest) {
 }
 
 function listTemplates() {
-  log('List of templates:');
-  dirs(templatesRoot).map(dir => dir.replace(templatesRoot, '').slice(1))
+  const lines = dirs(templatesRoot)
+    .map(dir => dir.replace(templatesRoot, '').slice(1))
     .filter(name => name !== 'default')
-    .forEach(name => {
-      log(chalk.green('    ' + name));
-    });
+    .map(name => chalk.green('    ' + name));
+  log(
+    ['List of templates:'].concat(lines)
+  );
 }
 
 function showTemplate(template) {
