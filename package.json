@@ -1,6 +1,6 @@
 {
   "name": "create-bootstrap-react-app",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Create React apps with Bootstrap",
   "bin": {
     "create-bootstrap-react-app": "index.js"
