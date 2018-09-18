@@ -1,6 +1,6 @@
 # create-bootstrap-react-app
 
-Create React apps with Bootstrap.
+Create React apps with Bootstrap 4.
 
 This tool runs [Create React App](https://github.com/facebook/create-react-app) with [Bootstrap 4 React](https://github.com/richardzcode/bootstrap-4-react).
 
