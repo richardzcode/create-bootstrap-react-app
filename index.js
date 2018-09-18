@@ -54,7 +54,6 @@ function copyFile(src, dest) {
 function listTemplates() {
   const lines = dirs(templatesRoot)
     .map(dir => dir.replace(templatesRoot, '').slice(1))
-    .filter(name => name !== 'default')
     .map(name => chalk.green('    ' + name));
   log(
     ['List of templates:'].concat(lines)
@@ -150,7 +149,7 @@ if (!projectName) {
 
 const nodeVersion = process.versions.node;
 const craVersion = moduleVersion('create-react-app');
-template = template || 'default';
+template = template || 'starter';
 
 log([
   chalk.cyan('Node version: ') + nodeVersion,
@@ -197,8 +196,8 @@ const projectRoot = path.join(CWD, projectName);
 
 let templateRoot = path.join(templatesRoot, template);
 if (!fileExists(templateRoot)) {
-  log('Template ' + chalk.yellow(template) + ' does not exist, use default');
-  template = 'default';
+  log('Template ' + chalk.yellow(template) + ' does not exist, use starter');
+  template = 'starter';
   templateRoot = path.join(templatesRoot, template);
 }
 
