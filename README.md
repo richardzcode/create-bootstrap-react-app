@@ -26,6 +26,8 @@ cd my-app
 npm start
 ```
 
+![Bootstrap starter template](bootstrap-starter.png)
+
 ## Templates
 
 You may create app with Bootstrap templates.
