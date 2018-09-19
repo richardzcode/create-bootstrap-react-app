@@ -31,7 +31,7 @@ export default class Navigator extends Component {
               >
                 Dropdown
               </Nav.Link>
-              <Dropdown.Menu aria-labeledby="dropdown01">
+              <Dropdown.Menu aria-labelledby="dropdown01">
                 <Dropdown.Item href="#">Action</Dropdown.Item>
                 <Dropdown.Item href="#">Another action</Dropdown.Item>
                 <Dropdown.Item href="#">Something else here</Dropdown.Item>
