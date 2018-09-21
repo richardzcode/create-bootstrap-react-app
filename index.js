@@ -202,6 +202,7 @@ if (!fileExists(templateRoot)) {
 }
 
 files(templateRoot)
+  .filter(file => !file.endsWith('template.md'))
   .forEach(file => {
     const dest = file.replace(templateRoot, projectRoot);
     copyFile(file, dest);
